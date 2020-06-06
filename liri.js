@@ -2,6 +2,7 @@
 require("dotenv").config();
 var Spotify = require("node-spotify-api");
 var axios = require ("axios");
+var moment = require("moment");
 
 //Add the code required to import the `keys.js` file and store it in a variable.
 var keys = require("./keys.js");
@@ -53,9 +54,12 @@ function concertThis(artist) {
     })
     .then(function(response){
         for (var i=0; i<response.data.length; i++) {
+
             console.log("Venue: " + response.data[i].venue.name);
             console.log("Location: " + response.data[i].venue.location);
-            console.log("Date: " + response.data[i].datetime);
+            var datetime = response.data[i].datetime;
+            var unformatDate = datetime.split("T");//split the datetime AT where the T starts, then it will be an array of the date [0] followed by time [1]
+            console.log("Date: " + moment(unformatDate[0]).format("MM-DD-YYYY"));
             console.log("-----------------------");
         }
     })
