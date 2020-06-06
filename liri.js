@@ -26,10 +26,17 @@ function spotifyThisSong(s) {
 
     spotify
         .search({ type: 'track', query: s})
-        .then(function(response){
-            console.log(response);
+        .then(function(data){
+            // console.log(data);
+            for (var i=0; i<1; i++){
+                console.log("Artist(s): " + data.tracks.items[0].artists[0].name);
+                console.log("Song name: " + data.tracks.items[0].name);
+                console.log("Preview: " + data.tracks.items[0].external_urls.spotify);
+                console.log("Album: " + data.tracks.items[0].album.name);
+            }
         })
         .catch(function(err){
-            console.log(err);
+            console.error("Error occurred: " + err);
         })
+
 }
