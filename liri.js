@@ -1,12 +1,14 @@
 //At the top of the `liri.js` file, add code to read and set any environment variables with the dotenv package:
 require("dotenv").config();
 var Spotify = require("node-spotify-api");
+var axios = require ("axios");
 
 //Add the code required to import the `keys.js` file and store it in a variable.
 var keys = require("./keys.js");
 
 //You should then be able to access your keys information like so
 var spotify = new Spotify(keys.spotify);
+var bands = keys.bands;
 
 //set up the role of each index in a node/liri call
 var liriCommands = process.argv[2];
@@ -16,7 +18,9 @@ switch (liriCommands) {
     case 'spotify-this-song':
         spotifyThisSong(userInput);
         break;
-
+    case 'concert-this':
+        concertThis(userInput);
+        break;
 }
 
 function spotifyThisSong(s) {
@@ -38,5 +42,22 @@ function spotifyThisSong(s) {
         .catch(function(err){
             console.error("Error occurred: " + err);
         })
+
+}
+
+function concertThis(artist) {
+    
+    axios({
+        method: 'get',
+        url: "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=" + bands.id
+    })
+    .then(function(response){
+        for (var i=0; i<response.data.length; i++) {
+            console.log("Venue: " + response.data[i].venue.name);
+            console.log("Location: " + response.data[i].venue.location);
+            console.log("Date: " + response.data[i].datetime);
+            console.log("-----------------------");
+        }
+    })
 
 }
