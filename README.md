@@ -91,7 +91,11 @@ If a user wishes to find the tour dates for a particular music artist, the user 
 
 ### Images
 
+*How to call a particular artist for their tour dates:*
+
 ![concert-this call](images/img_01.png)
+
+*Results from running concert-this (their tour dates are shown):*
 
 ![concert-this results](images/img_02.png)
 
@@ -111,11 +115,19 @@ If a user wishes to find the tour dates for a particular music artist, the user 
 
 ### Images
 
+*Calling spotify-this-song without user input..:*
+
 ![spotify-this-song without input call](images/img_03.png)
+
+*..will default with a calling to this song:*
 
 ![spotify-this-song without input results](images/img_04.png)
 
+*How to call a particular song:*
+
 ![spotify-this-song call](images/img_05.png)
+
+*its results:*
 
 ![spotify-this-song results](images/img_06.png)
 
@@ -142,7 +154,11 @@ If a user wishes to find the tour dates for a particular music artist, the user 
 
 ### Images
 
+*How to call a movie:*
+
 ![movie-this call](images/img_07.png)
+
+*Results from calling a movie:*
 
 ![movie-this results](images/img_08.png)
 
@@ -156,9 +172,15 @@ If a user wishes to find the tour dates for a particular music artist, the user 
 
 4. The `fs` Node package was used to interpret the text in the random.txt file to perform these liri commands.
 
+*When a call to a song is in random.txt:*
+
 ![do-what-it-says with song call in random.txt](images/img_09.png)
 
+*When a call to a movie is in random.txt:*
+
 ![do-what-it-says with movie call in random.txt](images/img_10.png)
+
+*When a call to a concert is in random.txt:*
 
 ![do-what-it-says with concert call in random.txt](images/img_11.png)
 
