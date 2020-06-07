@@ -3,6 +3,7 @@ require("dotenv").config();
 var Spotify = require("node-spotify-api");
 var axios = require ("axios");
 var moment = require("moment");
+var fs = require("fs");
 
 //Add the code required to import the `keys.js` file and store it in a variable.
 var keys = require("./keys.js");
@@ -10,6 +11,7 @@ var keys = require("./keys.js");
 //You should then be able to access your keys information like so
 var spotify = new Spotify(keys.spotify);
 var bands = keys.bands;
+var omdb = keys.omdb;
 
 //set up the role of each index in a node/liri call
 var liriCommands = process.argv[2];
@@ -21,6 +23,12 @@ switch (liriCommands) {
         break;
     case 'concert-this':
         concertThis(userInput);
+        break;
+    case 'movie-this':
+        movieThis(userInput);
+        break;
+    case 'do-what-it-says':
+        doWhatItSays(userInput);
         break;
 }
 
@@ -63,5 +71,52 @@ function concertThis(artist) {
             console.log("-----------------------");
         }
     })
+    .catch(function(error){
+        console.log(error);
+    })
 
+}
+
+function movieThis(movie) {
+    if(!movie){
+        movie = "Mr Nobody";
+    }
+    axios({
+        method: 'get',
+        url: "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=" + omdb.key
+    })
+    .then(function(response){
+        console.log("Movie: " + response.data.Title);
+        console.log("Released: " + response.data.Year);
+        console.log("IMDb Rating: " + response.data.imdbRating);
+        console.log("Rotten Tomatoes: " + response.data.Ratings[0]);
+        console.log("Produced in: " + response.data.Country);
+        console.log("Language: " + response.data.Language);
+        console.log("Plot: " + response.data.Plot);
+        console.log("Cast: " + response.data.Actors);
+    })
+    .catch(function(error){
+        console.log(error);
+    })
+}
+
+function doWhatItSays() {
+    fs.readFile("random.txt", "utf8", function(error, data){
+        if (error) {
+            console.log(error);
+            return
+        }
+        var dataSplit = data.split(",");
+        if (dataSplit[0] === "spotify-this-song"){
+            spotifyThisSong(dataSplit[1]);
+        }
+        else if (dataSplit[0] === "concert-this"){
+            concertThis(dataSplit[1]);
+        }
+        else if (dataSplit[0] === "movie-this"){
+            movieThis(dataSplit[1]);
+        }
+        
+    });
+        
 }
