@@ -17,7 +17,7 @@ var omdb = keys.omdb;
 var liriCommands = process.argv[2];
 var userInput = process.argv[3];
 
-switch (liriCommands) {
+switch (liriCommands) {//these are the four liri commands that can be called
     case 'spotify-this-song':
         spotifyThisSong(userInput);
         break;
@@ -32,8 +32,8 @@ switch (liriCommands) {
         break;
 }
 
-function spotifyThisSong(s) {
-    if (s === undefined) {
+function spotifyThisSong(s) {//user input is the name of a song
+    if (s === undefined) {//if a song isn't given, this is the default song
         s = "I Saw The Sign, Ace of Base";
     }
 
@@ -54,14 +54,14 @@ function spotifyThisSong(s) {
 
 }
 
-function concertThis(artist) {
+function concertThis(artist) {//user input is the name of the artist
     
     axios({
         method: 'get',
         url: "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=" + bands.id
     })
     .then(function(response){
-        for (var i=0; i<response.data.length; i++) {
+        for (var i=0; i<response.data.length; i++) {//every listed show will be logged to user
 
             console.log("Venue: " + response.data[i].venue.name);
             console.log("Location: " + response.data[i].venue.location);
@@ -77,7 +77,7 @@ function concertThis(artist) {
 
 }
 
-function movieThis(movie) {
+function movieThis(movie) {//user input is the name of a movie
     if(!movie){
         movie = "Mr Nobody";
     }
@@ -89,7 +89,7 @@ function movieThis(movie) {
         console.log("Movie: " + response.data.Title);
         console.log("Released: " + response.data.Year);
         console.log("IMDb Rating: " + response.data.imdbRating);
-        console.log("Rotten Tomatoes: " + response.data.Ratings[0]);
+        console.log("Rotten Tomatoes: " + response.data.Ratings[0].Value);
         console.log("Produced in: " + response.data.Country);
         console.log("Language: " + response.data.Language);
         console.log("Plot: " + response.data.Plot);
@@ -100,15 +100,15 @@ function movieThis(movie) {
     })
 }
 
-function doWhatItSays() {
+function doWhatItSays() {//this function calls the random.txt, and will run the liri call written in that file
     fs.readFile("random.txt", "utf8", function(error, data){
         if (error) {
             console.log(error);
             return
         }
-        var dataSplit = data.split(",");
-        if (dataSplit[0] === "spotify-this-song"){
-            spotifyThisSong(dataSplit[1]);
+        var dataSplit = data.split(",");//the call and input are separated by a comma in the random.txt file
+        if (dataSplit[0] === "spotify-this-song"){//after it is split, the 0th index is the liri call..
+            spotifyThisSong(dataSplit[1]);//..and the 1st index is the input that will be called in the API
         }
         else if (dataSplit[0] === "concert-this"){
             concertThis(dataSplit[1]);
