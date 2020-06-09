@@ -56,10 +56,7 @@ function spotifyThisSong(s) {//user input is the name of a song
 
 function concertThis(artist) {//user input is the name of the artist
     
-    axios({
-        method: 'get',
-        url: "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=" + bands.id
-    })
+    axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=" + bands.id)
     .then(function(response){
         for (var i=0; i<response.data.length; i++) {//every listed show will be logged to user
 
@@ -81,10 +78,7 @@ function movieThis(movie) {//user input is the name of a movie
     if(!movie){
         movie = "Mr Nobody";
     }
-    axios({
-        method: 'get',
-        url: "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=" + omdb.key
-    })
+    axios.get("https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=" + omdb.key)
     .then(function(response){
         console.log("Movie: " + response.data.Title);
         console.log("Released: " + response.data.Year);
