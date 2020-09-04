@@ -185,10 +185,6 @@ If a user wishes to find the tour dates for a particular music artist, the user 
 ![do-what-it-says with concert call in random.txt](images/img_11.png)
 
 
-# Deployed Site
-
-https://psu23.github.io/liri-node-app/
-
 # Technologies Used
 
 * Node.js
